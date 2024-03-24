@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "@config-plugins/react-native-blob-util": "^0.0.0",
-    "@config-plugins/react-native-pdf": "^0.0.0"
+    "@config-plugins/react-native-blob-util": "^7.0.0",
+    "@config-plugins/react-native-pdf": "^7.0.0"
   },
   "version": "1.0.0",
   "private": true,
