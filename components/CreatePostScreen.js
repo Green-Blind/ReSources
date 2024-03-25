@@ -4,7 +4,7 @@ import { View, TextInput, Button, Alert, StyleSheet, Text } from 'react-native';
 // Module pour sélectionner un fichier
 import DocumentPicker from 'react-native-document-picker';
 // Module d'extraction de données d'un PDF
-import pdfParser from 'pdf-parse';
+import { PDFDocument } from 'react-native-pdf-lib';
 
 const CreatePostScreen = () => {
   // Variable d'état title avec valeur initiale vide et setTitle pour mettre à jour cet état
@@ -15,39 +15,40 @@ const CreatePostScreen = () => {
   const [pdfText, setPdfText] = useState('');
 
   // Fonction pour choisir un fichier pdf
-  const handleChoosePDF = async () => {
-    try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.pdf],
-      });
+  // Je ne trouve pas de librairie qui fonctionne 
+  // const handleChoosePDF = async () => {
+  //   try {
+  //     const res = await DocumentPicker.pick({
+  //       type: [DocumentPicker.types.pdf],
+  //     });
 
-      // Récupération de l'URI
-      const { uri } = res;
+  //     // Récupération de l'URI
+  //     const { uri } = res;
 
-      // Extraction du texte du fichier PDF
-      const data = await pdfParser(uri);
-      const extractedText = data.text;
+  //     // Extraction du texte du fichier PDF
+  //     const pdf = await PDFDocument.load(uri);
+  //     const extractedText = await pdf.text();
 
-      // Mise à jour de la variable d'état
-      setPdfText(extractedText);
+  //     // Mise à jour de la variable d'état
+  //     setPdfText(extractedText);
 
-    } catch (error) {
-      if (DocumentPicker.isCancel(error)) {
-        console.log('Sélection du fichier annulée');
-      } else {
-        console.error('Erreur lors de la sélection du fichier PDF : ', error);
-        Alert.alert('Erreur', 'Une erreur est survenue lors de la sélection du fichier PDF');
-      }
-    }
-  };
+  //   } catch (error) {
+  //     if (DocumentPicker.isCancel(error)) {
+  //       console.log('Sélection du fichier annulée');
+  //     } else {
+  //       console.error('Erreur lors de la sélection du fichier PDF : ', error);
+  //       Alert.alert('Erreur', 'Une erreur est survenue lors de la sélection du fichier PDF');
+  //     }
+  //   }
+  // };
 
-  const handleSubmit = () => {
-    // Si du texte a été extrait du PDF, ajoute au texte du post
-    const postText = pdfText ? `${text}\n\nTexte extrait du PDF :\n${pdfText}` : text;
-    console.log('Titre du post : ', title);
-    console.log('Texte du post : ', postText);
-    // Ajouter ici la logique pour soumettre le post. Voir avec l'API
-  };
+  // const handleSubmit = () => {
+  //   // Si du texte a été extrait du PDF, ajoute au texte du post
+  //   const postText = pdfText ? `${text}\n\nTexte extrait du PDF :\n${pdfText}` : text;
+  //   console.log('Titre du post : ', title);
+  //   console.log('Texte du post : ', postText);
+  //   // Ajouter ici la logique pour soumettre le post. Voir avec l'API
+  // };
 
   // Interface utilisateur du composant
   return (
