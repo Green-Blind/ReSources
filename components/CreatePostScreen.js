@@ -4,7 +4,7 @@ import { View, TextInput, Button, Alert, StyleSheet, Text } from 'react-native';
 // Module pour sélectionner un fichier
 import DocumentPicker from 'react-native-document-picker';
 // Module d'extraction de données d'un PDF
-import { PDFDocument } from 'react-native-pdf-lib';
+// import { PDFDocument } from 'react-native-pdf-lib';
 
 const CreatePostScreen = () => {
   // Variable d'état title avec valeur initiale vide et setTitle pour mettre à jour cet état
