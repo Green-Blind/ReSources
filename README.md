@@ -1,29 +1,31 @@
-# PDF Example
+# Prérequis :
+- Un compte expo
+- Un appareil ou émulateur Android.
+- nodejs
+- Les conteneurs du projet https://github.com/PierreWTH/ResRel doivent tourner
+/!\ Cela ne fonctionne par avec iOS.
+/!\ Les ipv4 pour se connecter à l'API sont en dures. Il faudra les modifier manuellement.
 
-![Supports iOS](https://img.shields.io/badge/iOS-000.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff)
-![Supports Android](https://img.shields.io/badge/Android-000.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff)
+# Dans le répertoire :
+## Etape 1 : installation des modules
+Depuis un Bash :
+`npm i`
+Pour installer les modules
 
-Use `react-native-pdf` in a custom [Expo Dev Client](https://docs.expo.dev/clients/introduction/) (not available in Expo Go).
+## Etape 2 : se connecter avec son compte Expo
+Depuis un Bash :
+`eas login`
 
-## 🚀 How to use
+## Etape 3 : créer un build de dev
+Depuis un Bash :
+`eas build --profile development --platform android`
 
-```sh
-npx create-react-native-app -t with-pdf
-```
+Si vous utilisez un émulateur il est possible de directement l'installer sur celu-ci.
+Vérifier que l'application n'existe pas déjà sur l'émulateur et que celui-ci est bien lancé.
 
-## ☁️ Build in the cloud
+Si toutefois cette étape a été passée et que vous souhaitez l'installer tout de même sur votre émulateur, effectuez la commande suivante :
+`eas build:run`
 
-- [Building with EAS](https://docs.expo.dev/eas/)
-
-## 🏃 How to build and run locally
-
-- [Setup development Environment](https://reactnative.dev/docs/environment-setup)
-- ���� Build/Run on iOS `yarn ios`.
-- 🤖 Build/Run on Android `yarn android`.
-
-## 📝 Notes
-
-- [React Native PDF](https://github.com/wonday/react-native-pdf)
-- [Expo Config Plugin: PDF](https://github.com/expo/config-plugins/tree/master/packages/react-native-pdf)
-- [Expo Development Client docs](https://docs.expo.dev/clients/introduction/)
-- [Building with EAS](https://docs.expo.dev/eas/)
+## Etape 4 : lancer expo
+Depuis un Bash :
+`npx expo start --dev-client`
