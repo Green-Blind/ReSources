@@ -1,32 +1,57 @@
-import { SafeAreaView, useWindowDimensions } from "react-native";
-import Pdf from "react-native-pdf";
+// Import des modules
+import React, { useState, useEffect } from 'react';
+// Modules pour la navigation
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+// Module pour le stockage persistent
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// Import des composants
+// Connexion
+import LoginScreen from './components/LoginScreen';
+// Page d'accueil
+import HomeScreen from './components/HomeScreen'; 
+// Page de création de posts
+import CreatePostScreen from './components/CreatePostScreen';
 
-const source = {
-  uri: "https://samples.leanpub.com/thereactnativebook-sample.pdf",
-  cache: true,
-};
+// La navigation est à revoir. Ne satisfait pas mes attentes
+// Constantes pour la navigation
+const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
-export default function App() {
-  const { width, height } = useWindowDimensions();
+const App = () => {
+  // Variable d'état isLoggedIn avec valeur initiale flase et setIsLoggedIn pour mettre à jour cet état. Permet de savoir si le user est loggé.
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // useEffect permet de mettre à jour en fonction de l'activité utilisateur
+  useEffect(() => {
+    // Fonction pour vérifier si l'utilisateur est connecté
+    const checkLoginStatus = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        if (token) {
+          setIsLoggedIn(true);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la vérification du statut de connexion : ', error);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Pdf
-        source={source}
-        onLoadComplete={(numberOfPages, filePath) => {
-          console.log(`Number of pages: ${numberOfPages}`);
-        }}
-        onPageChanged={(page, numberOfPages) => {
-          console.log(`Current page: ${page}`);
-        }}
-        onError={(error) => {
-          console.log(error);
-        }}
-        onPressLink={(uri) => {
-          console.log(`Link pressed: ${uri}`);
-        }}
-        style={{ flex: 1, width, height }}
-      />
-    </SafeAreaView>
+    // Je n'arrive pas à conditionner le menu
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName='Home'>
+        <Drawer.Screen name="Login" component={LoginScreen} />
+        <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="CreatePost" component={CreatePostScreen} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
-}
+};
+
+export default App;
